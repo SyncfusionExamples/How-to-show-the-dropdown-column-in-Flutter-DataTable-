@@ -1,12 +1,20 @@
-# How-to-show-the-dropdown-column-in-Flutter-DataTable-
+import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:collection/collection.dart';
 
-The Syncfusion [Flutter DataGrid](https://www.syncfusion.com/flutter-widgets/flutter-datagrid) supports loading any widget in the cells. In this article, you can learn how to load the [DropdownButton](https://api.flutter.dev/flutter/material/DropdownButton-class.html) widget for a specific column and update the cell value by selecting the value from the drop-down.
+void main() {
+  runApp(const MaterialApp(home: SfDataGridDemo()));
+}
 
-## STEP 1: 
-Initialize the [SfDataGrid](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/SfDataGrid-class.html) widget with all the required properties. 
+class SfDataGridDemo extends StatefulWidget {
+  const SfDataGridDemo({Key? key}) : super(key: key);
 
-```dart
-List<Employee> _employees = <Employee>[];
+  @override
+  SfDataGridDemoState createState() => SfDataGridDemoState();
+}
+
+class SfDataGridDemoState extends State<SfDataGridDemo> {
+  List<Employee> _employees = <Employee>[];
   late EmployeeDataSource _employeeDataSource;
 
   @override
@@ -52,12 +60,8 @@ List<Employee> _employees = <Employee>[];
       ),
     );
   }
+}
 
-```
-## STEP 2: 
-Create a data source class by extending [DataGridSource](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/DataGridSource-class.html) for mapping data to the SfDataGrid. In the [buildRow](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/DataGridSource/buildRow.html) method, you can load the DropdownButton widget based on the condition. In the onChanged event of the DropdownButton, update the cell value by calling the [DataGridSource.notifyListeners](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/DataGridSourceChangeNotifier/notifyListeners.html) method.
-
-```dart
 class EmployeeDataSource extends DataGridSource {
   EmployeeDataSource(this.employees) {
     dataGridRows = employees
@@ -145,7 +149,26 @@ class EmployeeDataSource extends DataGridSource {
   }
 }
 
-```
-Note:
+class Employee {
+  Employee(this.id, this.name, this.designation, this.salary);
 
-If you want to load the DropdownButton only on the editing, you can load it from the buildEditWidget method. Please refer to [this](https://help.syncfusion.com/flutter/datagrid/editing) UG documentation, to learn more about the editing feature in DataGrid.
+  int? id;
+  String? name;
+  String? designation;
+  int? salary;
+}
+
+List<Employee> getEmployeeData() {
+  return [
+    Employee(10001, 'Jack', 'Manager', 90000),
+    Employee(10002, 'Perry', 'Project Lead', 77000),
+    Employee(10003, 'Stark', 'Developer', 43500),
+    Employee(10004, 'Edwards', 'Developer', 40000),
+    Employee(10005, 'Martin', 'QA Testing', 37000),
+    Employee(10006, 'Ellis', 'UI Designer', 35000),
+    Employee(10007, 'Lara', 'Support', 34000),
+    Employee(10008, 'Jefferson', 'Administrator', 33000),
+    Employee(10009, 'Williams', 'Sales Representative', 32000),
+    Employee(10010, 'Crowley', 'Sales Associate', 32000)
+  ];
+}
